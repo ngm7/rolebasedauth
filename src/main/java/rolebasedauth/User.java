@@ -6,6 +6,10 @@ import rolebasedauth.roles.Role;
 import java.util.HashMap;
 import java.util.Map;
 
+/*
+The User class represents our user. The user can have a name and stores the
+resources and corresponding roles assigned to the user.
+ */
 public class User {
     private String name;
     private Map<Resource, Role> resourceRoleMap;
@@ -29,16 +33,40 @@ public class User {
     }
 
     public void assignRoleForResource(Resource resource, Role role) {
-        resourceRoleMap.put(resource, role);
+        try {
+            resourceRoleMap.put(resource, role);
+        } catch (Exception ex) {
+            // log.error(Error trying to assign role for resource)
+            throw ex;
+        }
     }
 
     public Boolean hasAccess(Resource resource, Action action) {
-        if (resourceRoleMap.containsKey(resource)) {
-            if (resource.isActionValid(action)) {
-                return resourceRoleMap.get(resource).canPerformAction(action);
+        try {
+            if (resourceRoleMap.containsKey(resource)) {
+                if (resource.isActionValid(action)) {
+                    return resourceRoleMap.get(resource).canPerformAction(action);
+                }
             }
+            return false;
+        } catch (Exception ex) {
+            // log.error(Error trying to compute access)
+            throw ex;
         }
-        return false;
+    }
+
+    public void removeRoleForResource(Resource resource, Role role) {
+        try {
+            if (resourceRoleMap.containsKey(resource)) {
+                resourceRoleMap.remove(resource, role);
+            }
+            else {
+                System.out.println(String.format("User - {} does not hold any role for resource - {} to remove", this.name, resource.getName()));
+            }
+        } catch (Exception ex) {
+            System.out.println(String.format("Error is attempting to remove Role - {} for Resource - {} from User - {}", role, resource.getName(), this.name));
+            throw ex;
+        }
     }
 
 

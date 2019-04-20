@@ -1,41 +1,86 @@
 package rolebasedauth.resources;
 
 import rolebasedauth.Action;
-
 import java.util.HashSet;
 
+/*
+ A Resource class identifies the set of actions it allows any user to perform.
+ */
 public class Resource {
+    /*
+    The name of the resource.
+     */
     private String name;
+
+    /*
+    The set of allowed Actions that a user can perform.
+     */
     private HashSet<Action> allowedActions;
 
+    /*
+    The Resource constructor
+     */
     public Resource(String name) {
         this.name = name;
         allowedActions = new HashSet<>();
     }
 
+    /*
+    The resource constructor for Builder
+     */
     private Resource(Builder builder) {
         this.name = builder.name;
         this.allowedActions = builder.allowedActions;
     }
 
+    /*
+    Getter for allowedActions
+     */
     public HashSet<Action> getAllowedActions() {
         return allowedActions;
     }
 
+    /*
+    Getter for Name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /*
+    Assign a set of actions that can be performed on a resource.
+     */
     public void assignAllowableActions(HashSet<Action> actions) {
         for (Action action : actions) {
-            assignAction(action);
+            addAction(action);
         }
     }
 
-    public void assignAction(Action action) {
+    /*
+    Add an action that can be performed on a resource.
+     */
+    public void addAction(Action action) {
         try {
             allowedActions.add(action);
         } catch (Exception ex) {
-            // log.error(Cannot add action for Resource
+            System.out.println(String.format("Error trying to Add action - {} to the set of allowed action for Resource", action.toString(), this.name));
         }
     }
 
+    /*
+    Remove an action that can be performed on a resource
+     */
+    public void removeAction(Action action) {
+        try {
+            allowedActions.remove(action);
+        } catch (Exception ex) {
+            System.out.println(String.format("Error trying to Remove action - {} from the set of allowed action for Resource", action.toString(), this.name));
+        }
+    }
+
+    /*
+    Check if an action is even performable on a resource.
+     */
     public Boolean isActionValid(Action action) {
         return allowedActions.contains(action);
     }
