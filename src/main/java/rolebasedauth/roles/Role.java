@@ -8,7 +8,11 @@ public abstract class Role {
     HashSet<Action> actions;
 
     Role() {
-        this.actions = new HashSet<Action>();
+        this.actions = new HashSet<>();
+    }
+
+    public HashSet<Action> getActions() {
+        return actions;
     }
 
     public void assignAction(Action action) {
@@ -26,6 +30,7 @@ public abstract class Role {
             // log.error(cannot remove action)
         }
     }
+
     public Boolean canPerformAction(Action action) {
         return actions.contains(action);
     }

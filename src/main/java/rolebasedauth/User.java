@@ -1,21 +1,31 @@
 package rolebasedauth;
 
+import rolebasedauth.resources.Resource;
 import rolebasedauth.roles.Role;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 public class User {
     private String name;
-    private String uid;
     private Map<Resource, Role> resourceRoleMap;
 
     User(String name) {
         this.name = name;
-        this.uid = generateUid();
         resourceRoleMap = new HashMap<>();
+    }
+
+    private User(Builder builder) {
+        this.name = builder.name;
+        this.resourceRoleMap = builder.resourceRoleMap;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Map<Resource, Role> getResourceRoleMap() {
+        return resourceRoleMap;
     }
 
     public void assignRoleForResource(Resource resource, Role role) {
@@ -28,11 +38,38 @@ public class User {
                 return resourceRoleMap.get(resource).canPerformAction(action);
             }
         }
-
         return false;
     }
 
-    public String generateUid(){
-        return UUID.randomUUID().toString();
+
+    public static class Builder {
+        /// instance fields
+        private String name;
+        private Map<Resource, Role> resourceRoleMap;
+
+        public static Builder newInstance()
+        {
+            return new Builder();
+        }
+
+        private Builder() {}
+
+        public Builder Name(String name)
+        {
+            this.name = name;
+            return this;
+        }
+
+        public Builder ResourceRoleMap(Map<Resource, Role> resourceRoleMap) {
+            this.resourceRoleMap = resourceRoleMap;
+            return this;
+        }
+
+        // build method to deal with outer class
+        // to return outer instance
+        public User build()
+        {
+            return new User(this);
+        }
     }
 }
