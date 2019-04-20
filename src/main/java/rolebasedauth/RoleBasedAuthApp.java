@@ -63,7 +63,7 @@ public class RoleBasedAuthApp {
             user.assignRoleForResource(resource, role);
         } else {
             // log error.
-            System.out.println(String.format("The user - {} or the Resource- {} does not exist. Doing nothing.", user.getName(), resource.getName()));
+            System.out.println(String.format("The user - %s or the Resource- %s does not exist. Doing nothing.", user.getName(), resource.getName()));
         }
     }
 
@@ -75,7 +75,7 @@ public class RoleBasedAuthApp {
             user.removeRoleForResource(resource, role);
         } else {
             // log error.
-            System.out.println(String.format("The user - {} or the Resource- {} does not exist. Doing nothing.", user.getName(), resource.getName()));
+            System.out.println(String.format("The user - %s or the Resource- %s does not exist. Doing nothing.", user.getName(), resource.getName()));
         }
     }
 
@@ -100,19 +100,19 @@ public class RoleBasedAuthApp {
         Resource dataStore = new Resource("dataStore");
         dataStore.assignAllowableActions(new HashSet<>(Arrays.asList(Action.CREATE, Action.READ, Action.WRITE, Action.DELETE, Action.NUKE)));
         resources.add(dataStore);
-        System.out.println(String.format("Registering {} resource", dataStore.getName()));
+        System.out.println(String.format("Registering %s resource", dataStore.getName()));
 
         // create a user - let's call him ourGuy and register him to the app.
         User ourGuy = new User("ourGuy");
         users.add(ourGuy);
-        System.out.println(String.format("Registering {} user", ourGuy.getName()));
+        System.out.println(String.format("Registering %s user", ourGuy.getName()));
 
         // Give admin powers to our guy - Assign admin role to the user.
-        System.out.println("Assigning adminRole to adminOne for DataStore");
+        System.out.println(String.format("Assigning %s to %s for %s", adminRole.getClass(), ourGuy.getName(), dataStore.getName()));
         AssignRoleForResourceToUser(ourGuy, dataStore, adminRole);
 
         // Our guy cannot obviously Nuke the datastore because, meh Admin
-        System.out.println(String.format("Can {} {} a {}? \n {}",
+        System.out.println(String.format("Can %s %s a %s? \n %s\n",
                 ourGuy.getName(),
                 Action.NUKE.toString(),
                 dataStore.getName(),
@@ -127,7 +127,7 @@ public class RoleBasedAuthApp {
         AssignRoleForResourceToUser(ourGuy, dataStore, nukeRole);
 
         // Our guy cannot obviously Nuke the datastore because, meh Admin
-        System.out.print(String.format("Can {} {} a {}? \n {}",
+        System.out.print(String.format("Can %s %s a %s? \n %s\n",
                 ourGuy.getName(),
                 Action.NUKE.toString(),
                 dataStore.getName(),

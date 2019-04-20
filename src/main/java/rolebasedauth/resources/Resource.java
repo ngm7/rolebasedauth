@@ -63,7 +63,7 @@ public class Resource {
         try {
             allowedActions.add(action);
         } catch (Exception ex) {
-            System.out.println(String.format("Error trying to Add action - {} to the set of allowed action for Resource", action.toString(), this.name));
+            System.out.println(String.format("Error trying to Add action - %s to the set of allowed action for Resource", action.toString(), this.name));
         }
     }
 
@@ -74,7 +74,7 @@ public class Resource {
         try {
             allowedActions.remove(action);
         } catch (Exception ex) {
-            System.out.println(String.format("Error trying to Remove action - {} from the set of allowed action for Resource", action.toString(), this.name));
+            System.out.println(String.format("Error trying to Remove action - %s from the set of allowed action for Resource", action.toString(), this.name));
         }
     }
 
