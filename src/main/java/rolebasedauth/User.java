@@ -15,7 +15,7 @@ public class User {
     User(String name) {
         this.name = name;
         this.uid = generateUid();
-        resourceRoleMap = new HashMap<Resource, Role>();
+        resourceRoleMap = new HashMap<>();
     }
 
     public void assignRoleForResource(Resource resource, Role role) {
@@ -24,8 +24,11 @@ public class User {
 
     public Boolean hasAccess(Resource resource, Action action) {
         if (resourceRoleMap.containsKey(resource)) {
-            return resourceRoleMap.get(resource).canPerformAction(action);
+            if (resource.isActionValid(action)) {
+                return resourceRoleMap.get(resource).canPerformAction(action);
+            }
         }
+
         return false;
     }
 

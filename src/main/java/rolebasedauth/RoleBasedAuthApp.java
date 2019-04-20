@@ -4,6 +4,8 @@ import rolebasedauth.roles.AdminRole;
 import rolebasedauth.roles.ReaderRole;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 public class RoleBasedAuthApp {
@@ -19,8 +21,7 @@ public class RoleBasedAuthApp {
     public static void main(String args[]){
         RoleBasedAuthApp app = new RoleBasedAuthApp();
         Setup();
-
-        System.out.print("Can Naman delete a datastore? " + hasAccess(users.get(0), resources.get(0), Action.DELETE));
+        System.out.print("Can Naman nuke a datastore? " + hasAccess(users.get(0), resources.get(0), Action.NUKE));
     }
 
     public static Boolean hasAccess(User user, Resource resource, Action action) {
@@ -30,6 +31,7 @@ public class RoleBasedAuthApp {
     private static void Setup() {
         // create a resource
         Resource dataStore = new Resource("dataStore");
+        dataStore.assignActions(new HashSet<>(Arrays.asList(Action.CREATE, Action.READ, Action.WRITE, Action.DELETE)));
         resources.add(dataStore);
 
         // create a user, assign resources and roles to user
@@ -48,5 +50,6 @@ public class RoleBasedAuthApp {
 1. A user can have different roles for different resources
 2. There are only 4 types of Actions: CREATE, READ, UPDATE, DELETE
 3. A role can perform an assortment of above actions.
-4. A user can have multiple roles assigned
+4. A user can have multiple roles assigned, but only one per resource.
+5.
  */
