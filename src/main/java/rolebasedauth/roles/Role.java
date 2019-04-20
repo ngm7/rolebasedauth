@@ -5,8 +5,11 @@ import rolebasedauth.Action;
 
 // use builder pattern
 public abstract class Role {
-    String name;
     HashSet<Action> actions;
+
+    Role() {
+        this.actions = new HashSet<Action>();
+    }
 
     public void assignAction(Action action) {
         try {
@@ -16,6 +19,13 @@ public abstract class Role {
         }
     }
 
+    public void removeAction(Action action) {
+        try {
+            actions.remove(action);
+        } catch (Exception ex) {
+            // log.error(cannot remove action)
+        }
+    }
     public Boolean canPerformAction(Action action) {
         return actions.contains(action);
     }

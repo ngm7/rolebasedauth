@@ -3,6 +3,7 @@ package rolebasedauth;
 import rolebasedauth.roles.Role;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -14,7 +15,7 @@ public class User {
     User(String name) {
         this.name = name;
         this.uid = generateUid();
-        resourceRoleMap = Collections.emptyMap();
+        resourceRoleMap = new HashMap<Resource, Role>();
     }
 
     public void assignRoleForResource(Resource resource, Role role) {

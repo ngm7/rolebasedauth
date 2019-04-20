@@ -3,6 +3,6 @@ package rolebasedauth;
 public enum Action {
     CREATE,
     READ,
-    UPDATE,
+    WRITE,
     DELETE
 }
