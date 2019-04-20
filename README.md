@@ -7,7 +7,7 @@ Role Based Access Control:
 1. Implement a role based auth system. System should be able to assign a role to user and remove a user from the role
 2. Entities are USER, ACTION TYPE, RESOURCE, ROLE
 3. ACTION TYPE defines the access level(Ex: READ, WRITE, DELETE)
-4. Access to resources for users are controlled strictly by the role.One user can have multiple roles. Given a user, action type and resource system should be able to tell whether user has access or not.
+4. Access to resources for users are controlled strictly by the role. One user can have multiple roles. Given a user, action type and resource system should be able to tell whether user has access or not.
 
 
 Please list down the assumptions made. Scope out things if you feel this takes more than 3 hours and add them to assumptions.
@@ -41,4 +41,9 @@ The RoleBasedAuthApp is the entry point for the application. It demonstrates a s
     c. The builder patter can be used extensively to create users easily.
     d. A user can have multiple roles assigned to it - but only one per resource.
 
+How to Run
+==========
 
+1. go to parent directory (src/main/java/rolebasedauth)
+2. $mvn clean install
+3. java -jar target/role-based-auth-1.0-SNAPSHOT.jar
