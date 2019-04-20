@@ -1,6 +1,5 @@
 # rolebasedauth
 
-=================
 Problem Statement
 =================
 Role Based Access Control:
@@ -13,7 +12,6 @@ Role Based Access Control:
 
 Please list down the assumptions made. Scope out things if you feel this takes more than 3 hours and add them to assumptions.
 
-===========
 Assumptions
 ===========
 1. The actions are all enums specified in the Action file: CREATE, READ, UPDATE, DELETE, NUKE
@@ -22,7 +20,6 @@ Assumptions
 4. A role can perform a set of actions.
 5. A user can have multiple roles assigned, but only one per resource.
 
-==============
 For the reader
 ==============
 
